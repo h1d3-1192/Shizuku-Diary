@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Waifu On The Web</h1>
+  <h1>Shizuku 就活を応援するサポートモデル</h1>
   <img src="public/assets/thumbnail.png?raw=true" alt="サムネイル">
 
   [![Netlify Status](https://api.netlify.com/api/v1/badges/dee7e35d-e19a-459d-8f09-dab97e2cfb00/deploy-status)](https://waifu.sglkc.my.id)
