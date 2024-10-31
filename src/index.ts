@@ -1,8 +1,28 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 import { CustomWindow } from './types';
 import Live2D from './Live2D';
 import './Message.ts';
 //import NLP from './NLP';
 //import SpeechRecognition from './SpeechRecognition';
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBvv2GswK9J7pSVhF3I0Hnv9D78ilFLzyI",
+  authDomain: "live2d-with-gemini-15193.firebaseapp.com",
+  projectId: "live2d-with-gemini-15193",
+  storageBucket: "live2d-with-gemini-15193.firebasestorage.app",
+  messagingSenderId: "321779529306",
+  appId: "1:321779529306:web:64ac53f9fc9a05f8290a63",
+  measurementId: "G-7TMWPZ8VXF"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 declare const window: CustomWindow;
 
