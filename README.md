@@ -17,7 +17,6 @@
 
 しずく(雫)は普通の10代の女の子です。
 
-名前の由来は私の名前 + AIです。
 彼女のモデルは[Live2D Sample Model Collection](https://www.live2d.com/en/download/sample-data/)から、その他はインターネットからのもので、
 私はここでいかなるアセットも所有権を主張しておらず、クレジットは正当な所有者に帰属します。
 
