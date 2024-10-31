@@ -1,0 +1,28 @@
+{
+  "name": "waifu-otw",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.8"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@pixi/app": "^6.5",
+    "@pixi/core": "^6.5",
+    "@pixi/interaction": "^6.5",
+    "@pixi/ticker": "^6.5",
+    "pixi-live2d-display": "^0.4.0",
+    "ts-node": "^10.9.1"
+  },
+  "description": "<div align=\"center\">   <h1>Waifu On The Web</h1>   <img src=\"public/assets/thumbnail.png?raw=true\" alt=\"thumbnail\">",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
+}
