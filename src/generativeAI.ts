@@ -3,7 +3,7 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from '@google/generative-ai';
-import { threadId } from 'worker_threads';
+// import { threadId } from 'worker_threads';
 
 const apiKey = 'AIzaSyC7lehEe1W1zGGvI8olTQ4AGAtr-C5I8YA';
 const genAI = new GoogleGenerativeAI(apiKey);
@@ -32,23 +32,23 @@ const generationConfig = {
   responseMimeType: "text/plain",
 
 };
-const safetySettings = [
-  {category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-   threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE},
-  {category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-   threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE},
-  {category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-   threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE},
-  {category: HarmCategory.HARM_CATEGORY_UNSPECIFIED,
-   threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE},
-  {category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-   threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE}
-]
+// const safetySettings = [
+//   {category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+//    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE},
+//   {category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+//    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE},
+//   {category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+//    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE},
+//   {category: HarmCategory.HARM_CATEGORY_UNSPECIFIED,
+//    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE},
+//   {category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+//    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE}
+// ]
 
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-pro-002",
   systemInstruction: text_si,
-  safetySettings: safetySettings,
+  // safetySettings: safetySettings,
 });
 
 async function run(message: string) : Promise<string> {
