@@ -86,18 +86,6 @@
   npm run build
   ```
 
-## 貢献
-
-このプロジェクトに協力してくれる人がいることを本当に願っています。データに関するちょっとした助けでも大歓迎です！
-
-> ちなみに[src/nlp/](src/nlp/)にあります。多ければ多いほど良い!!!!
-
-1. リポジトリをフォークする
-2. ブランチを作成する（`git checkout -b patch-1`）
-3. 変更をコミットする（`git commit -m 'chore: add more english intents'`）
-4. ブランチにプッシュする（`git push origin patch-1`）
-5. [プルリクエスト](https://github.com/sglkc/waifu-otw/pulls)を開く
-
 ## ライセンス
 
 MITライセンスの下で配布されています。詳細は[LICENSE](LICENSE)をご覧ください。
