@@ -6,24 +6,32 @@ import { getAnalytics } from "firebase/analytics";
 import { CustomWindow } from './types';
 import Live2D from './Live2D';
 import './Message.ts';
+import { getVertexAI, getGenerativeModel } from "firebase/vertexai";
+
+
 //import NLP from './NLP';
 //import SpeechRecognition from './SpeechRecognition';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBvv2GswK9J7pSVhF3I0Hnv9D78ilFLzyI",
-  authDomain: "live2d-with-gemini-15193.firebaseapp.com",
-  projectId: "live2d-with-gemini-15193",
-  storageBucket: "live2d-with-gemini-15193.firebasestorage.app",
-  messagingSenderId: "321779529306",
-  appId: "1:321779529306:web:64ac53f9fc9a05f8290a63",
-  measurementId: "G-7TMWPZ8VXF"
+  apiKey: "AIzaSyC2xQmoosnYMXgmiY4JbCzx8KRfK3kGgJQ",
+  authDomain: "my-project-15193-name-diary.firebaseapp.com",
+  projectId: "my-project-15193-name-diary",
+  storageBucket: "my-project-15193-name-diary.firebasestorage.app",
+  messagingSenderId: "410472769008",
+  appId: "1:410472769008:web:ce68bdfd3ba911bda4a935",
+  measurementId: "G-S4ENDR9WY9"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+// Initialize the Vertex AI service
+const vertexAI = getVertexAI(app);
 
+// Initialize the generative model with a model that supports your use case
+// Gemini 1.5 models are versatile and can be used with all API capabilities
+const model = getGenerativeModel(vertexAI, { model: "gemini-1.5-pro-002" });
 declare const window: CustomWindow;
 
 window.Modules = {
