@@ -1,12 +1,31 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+const firebaseConfig = {
+  apiKey: "AIzaSyC2xQmoosnYMXgmiY4JbCzx8KRfK3kGgJQ",
+  authDomain: "my-project-15193-name-diary.firebaseapp.com",
+  projectId: "my-project-15193-name-diary",
+  storageBucket: "my-project-15193-name-diary.firebasestorage.app",
+  messagingSenderId: "410472769008",
+  appId: "1:410472769008:web:ce68bdfd3ba911bda4a935",
+  measurementId: "G-S4ENDR9WY9"
+};
+export const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+// Initialize the Vertex AI service
+
+
 //import NLP from "./NLP";
 import Live2D from './Live2D';
 //import run from './generativeAI';
-import {
-  GoogleGenerativeAI,
-} from '@google/generative-ai';
+import { getVertexAI, getGenerativeModel } from "firebase/vertexai";
+const vertexAI = getVertexAI(app);
 
-const apiKey = 'AIzaSyC7lehEe1W1zGGvI8olTQ4AGAtr-C5I8YA';
-const genAI = new GoogleGenerativeAI(apiKey);
+// Initialize the generative model with a model that supports your use case
+// Gemini 1.5 models are versatile and can be used with all API capabilities
+
 
 const text_si = `あなたは教育機関に所属するキャリアコンサルタントとして、学生の就職活動を支援します。\n\n  
 具体的には、以下の手順で学生をサポートしてください。\n  \n  
@@ -32,16 +51,22 @@ const generationConfig = {
   responseMimeType: "text/plain",
 
 };
-const botmodel = genAI.getGenerativeModel({
-  model: "gemini-1.5-pro-002",
-  systemInstruction: text_si,
-  // safetySettings: safetySettings,
+// const botmodel = genAI.getGenerativeModel({
+//   model: "gemini-1.5-pro-002",
+//   systemInstruction: text_si,
+//   // safetySettings: safetySettings,
+// });
+const botmodel = getGenerativeModel(vertexAI, {  
+    model: "gemini-1.5-pro-002",
+    systemInstruction: text_si,
 });
+
 const chatSession = botmodel.startChat({
     generationConfig,
     history: [
     ],
   });
+
 const { model, motions } = Live2D;
 const form = <HTMLFormElement>document.getElementById('form');
 const input = <HTMLInputElement>document.getElementById('message');
@@ -60,6 +85,7 @@ const createMessage = (sender: 'user' | 'reply', message: string) => {
 const processMessage = async (message: string) => {
   // random delay for "authenticity"
   const delay = Math.random() * 1000 + 300;
+
   const result = await chatSession.sendMessage(message);
   const answer = await result.response.text();
 

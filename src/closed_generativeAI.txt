@@ -2,7 +2,7 @@ import {
   GoogleGenerativeAI,
 } from '@google/generative-ai';
 
-const apiKey = 'AIzaSyC7lehEe1W1zGGvI8olTQ4AGAtr-C5I8YA';
+const apiKey = 'API_KEY';
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const text_si = `あなたは教育機関に所属するキャリアコンサルタントとして、学生の就職活動を支援します。\n\n  

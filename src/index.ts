@@ -1,37 +1,15 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 import { CustomWindow } from './types';
 import Live2D from './Live2D';
 import './Message.ts';
-import { getVertexAI, getGenerativeModel } from "firebase/vertexai";
 
 
 //import NLP from './NLP';
 //import SpeechRecognition from './SpeechRecognition';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyC2xQmoosnYMXgmiY4JbCzx8KRfK3kGgJQ",
-  authDomain: "my-project-15193-name-diary.firebaseapp.com",
-  projectId: "my-project-15193-name-diary",
-  storageBucket: "my-project-15193-name-diary.firebasestorage.app",
-  messagingSenderId: "410472769008",
-  appId: "1:410472769008:web:ce68bdfd3ba911bda4a935",
-  measurementId: "G-S4ENDR9WY9"
-};
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-// Initialize the Vertex AI service
-const vertexAI = getVertexAI(app);
 
-// Initialize the generative model with a model that supports your use case
-// Gemini 1.5 models are versatile and can be used with all API capabilities
-const model = getGenerativeModel(vertexAI, { model: "gemini-1.5-pro-002" });
 declare const window: CustomWindow;
 
 window.Modules = {
