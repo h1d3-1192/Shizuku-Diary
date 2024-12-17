@@ -15,29 +15,42 @@ const app = new Application({
   view: canvas,
 });
 
-const model = await Live2DModel.from('live2d/shizuku.model.json', {
-  autoInteract: false,
-  motionPreload: MotionPreloadStrategy.IDLE
+let model: Live2DModel;
+
+async function loadModel() {
+  model = await Live2DModel.from('live2d/shizuku.model.json', {
+    autoInteract: false,
+    motionPreload: MotionPreloadStrategy.IDLE
+  });
+  app.stage.addChild(model);
+  return model;
+}
+
+const modelPromise = loadModel();
+
+modelPromise.then(() => {
+  let mousestate = false;
+  canvas.addEventListener('pointerdown', (event) => model.tap(event.clientX, event.clientY));
+  canvas.addEventListener('pointerenter', () => (mousestate = true));
+  canvas.addEventListener('pointerleave', () => {
+    model.internalModel.focusController.focus(0, 0);
+    mousestate = false;
+  });
+
+  canvas.addEventListener('pointermove', ({ clientX, clientY }) => {
+    if (mousestate) model.focus(clientX, clientY);
+  });
+
+  // interaction
+  model.on('hit', (hitAreas) => {
+    if (hitAreas.includes('head')) model.motion('shake', 1);
+  });
+
+  // TODO: it has to be done twice, idk why
+  fitModel();
+  setTimeout(() => fitModel(), 250);
 });
 
-app.stage.addChild(model);
-
-let mousestate = false;
-canvas.addEventListener('pointerdown', (event) => model.tap(event.clientX, event.clientY));
-canvas.addEventListener('pointerenter', () => (mousestate = true));
-canvas.addEventListener('pointerleave', () => {
-  model.internalModel.focusController.focus(0, 0);
-  mousestate = false;
-});
-
-canvas.addEventListener('pointermove', ({ clientX, clientY }) => {
-  if (mousestate) model.focus(clientX, clientY);
-});
-
-// interaction
-model.on('hit', (hitAreas) => {
-  if (hitAreas.includes('head')) model.motion('shake', 1);
-});
 
 const expressions = { happy: 1, sad: 2, angry: 3 };
 const motions: {[key: string]: Array<[string, number]>} = {
@@ -69,9 +82,6 @@ const motions: {[key: string]: Array<[string, number]>} = {
   ]
 };
 
-// TODO: it has to be done twice, idk why
-fitModel();
-setTimeout(() => fitModel(), 250);
 
 function fitModel() {
   const breakpoint = {
@@ -116,4 +126,4 @@ function fitModel() {
 
 window.addEventListener('resize', fitModel);
 
-export default { app, expressions, model, motions };
+export default { app, expressions, model: modelPromise, motions };

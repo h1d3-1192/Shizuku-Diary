@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "module": "ESNext",
+    "module": "es2022",
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "Node",
     "strict": true,
@@ -13,8 +13,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "skipLibCheck": true,
-    "allowImportingTsExtensions": true
+    "skipLibCheck": true
   },
   "include": [
     "src",

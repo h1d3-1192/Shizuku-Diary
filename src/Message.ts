@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 const firebaseConfig = {
@@ -13,7 +13,6 @@ const firebaseConfig = {
   measurementId: "G-S4ENDR9WY9"
 };
 export const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 // Initialize the Vertex AI service
 
 
@@ -72,7 +71,48 @@ const form = <HTMLFormElement>document.getElementById('form');
 const input = <HTMLInputElement>document.getElementById('message');
 const messages = <HTMLElement>document.getElementById('messages');
 
-const createMessage = (sender: 'user' | 'reply', message: string) => {
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+const authButton = document.createElement('button');
+authButton.innerText = 'Sign in with Google';
+authButton.onclick = async () => {
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (error) {
+    console.error("Error signing in:", error);
+  }
+};
+
+const signOutButton = document.createElement('button');
+signOutButton.innerText = 'Sign out';
+signOutButton.onclick = async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error("Error signing out:", error);
+  }
+};
+
+const authStatus = document.createElement('div');
+document.body.prepend(authStatus);
+document.body.prepend(signOutButton);
+document.body.prepend(authButton);
+
+onAuthStateChanged(auth, (user: User | null) => {
+  if (user) {
+    authStatus.innerText = `Signed in as ${user.displayName} (${user.email})`;
+    authButton.style.display = 'none';
+    signOutButton.style.display = 'block';
+  } else {
+    authStatus.innerText = 'Not signed in';
+    authButton.style.display = 'block';
+    signOutButton.style.display = 'none';
+  }
+});
+
+
+const createMessage = (sender: 'user' | 'reply', message: string): HTMLDivElement => {
   const div = document.createElement('div');
 
   div.className = sender;
@@ -80,6 +120,7 @@ const createMessage = (sender: 'user' | 'reply', message: string) => {
 
   messages.append(div);
   div.scrollIntoView();
+  return div;
 }
 
 const processMessage = async (message: string) => {
@@ -103,9 +144,9 @@ const processMessage = async (message: string) => {
   const random = Math.round(Math.random() * (motions[motionGroup].length - 1));
   const motion = motions[motionGroup][random];
 
-  setTimeout(() => {
+  setTimeout(async () => {
     createMessage('reply', answer || "すみません、もう一度言ってみてください。");
-    model.motion(motion[0], motion[1]);
+    (await model).motion(motion[0], motion[1]);
   }, delay);
 }
 
